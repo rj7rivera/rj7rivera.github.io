@@ -1,6 +1,6 @@
 import { headerLinks } from './headerLinks'
 import { useHeaderMenu } from './useHeaderMenu'
-import Logo from '../../assets/icono/logo.png'
+import Logo from '../../assets/icono/Logo.png'
 import inicioIcon from '../../assets/icono/inicio.png'
 import sobreMiIcon from '../../assets/icono/sobre_mi.png'
 import proyectosIcon from '../../assets/icono/proyecto.png'
