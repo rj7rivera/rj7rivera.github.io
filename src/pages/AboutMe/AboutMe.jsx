@@ -12,7 +12,7 @@ function AboutMe() {
     <section id="sobre-mi" className="about">
       <div className="about__frame">
         <div className="about__header">
-          <span className="about__number">01 /</span>
+          <span className="about__number">01 </span>
           <h2 className="about__section-title">SOBRE MÍ</h2>
         </div>
 

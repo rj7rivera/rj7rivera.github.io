@@ -1,6 +1,20 @@
 import { headerLinks } from './headerLinks'
 import { useHeaderMenu } from './useHeaderMenu'
+import Logo from '../../assets/icono/logo.png'
+import inicioIcon from '../../assets/icono/inicio.png'
+import sobreMiIcon from '../../assets/icono/sobre_mi.png'
+import proyectosIcon from '../../assets/icono/proyecto.png'
+import experienciaIcon from '../../assets/icono/experiencia.png'
+import contactoIcon from '../../assets/icono/contacto.png'
 import './Header.css'
+
+const headerIcons = {
+  inicio: inicioIcon,
+  'sobre-mi': sobreMiIcon,
+  proyectos: proyectosIcon,
+  experiencia: experienciaIcon,
+  contacto: contactoIcon,
+}
 
 function Header() {
   const { activeLink, handleLinkClick, isMenuOpen, setIsMenuOpen, hasScrolled } = useHeaderMenu()
@@ -8,7 +22,9 @@ function Header() {
   return (
     <header className={`site-header ${hasScrolled ? 'is-scrolled' : ''}`} aria-label="Navegación principal">
       <nav className="header-nav" aria-label="Secciones del portafolio">
-        <div className="header-slot header-slot--logo" aria-hidden="true" />
+        <a className="header-brand" href="#inicio" aria-label="Ir al inicio" onClick={() => handleLinkClick('inicio')}>
+          <img src={Logo} alt="" />
+        </a>
 
         {/* Botón hamburguesa visible solo en pantallas pequeñas. */}
         <button
@@ -35,6 +51,7 @@ function Header() {
                   aria-current={activeLink === link.id ? 'page' : undefined}
                   onClick={() => handleLinkClick(link.id)}
                 >
+                  <img src={headerIcons[link.id]} alt="" />
                   {link.label}
                 </a>
               </li>

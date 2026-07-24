@@ -25,13 +25,10 @@
   margin: 0 0 12px;
   color: #bfff25;
   font: 700 1rem monospace;
+  font-size: 1.4rem;
 }
 
-.projects__eyebrow span {
-  width: 20px;
-  height: 5px;
-  background: #bfff25;
-}
+
 
 .projects h2 {
   margin: 0;

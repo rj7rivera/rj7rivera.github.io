@@ -1,39 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './Hero.css'
 import { FaReact, FaJs, FaHtml5, FaCss3Alt, FaFigma } from 'react-icons/fa'
 import { SiVite } from 'react-icons/si'
-import teachingPhoto from '../../assets/image/HERO/WhatsApp Image 2026-07-21 at 14.53.05.jpeg'
-import sportsPhoto from '../../assets/image/HERO/WhatsApp Image 2026-07-21 at 14.53.04.jpeg'
-import teamPhoto from '../../assets/image/HERO/WhatsApp Image 2026-07-21 at 14.53.06.jpeg'
-
-import experiencePhotoTwo from '../../assets/image/HERO/2.jpeg'
-import teamPhotoTwo from '../../assets/image/HERO/WhatsApp Image 2026-07-21 at 14.53.06 (1).jpeg'
-
-const heroSlides = [
-  { image: teachingPhoto, alt: 'Ryan impartiendo una clase', label: 'DOCENCIA' },
-  { image: sportsPhoto, alt: 'Equipo deportivo con el que Ryan colaboró', label: 'EQUIPO CAMPEON UESG' },
-  { image: teamPhoto, alt: 'Equipo de trabajo de Ryan', label: 'Banariego' },
-  
-  { image: experiencePhotoTwo, alt: 'Momento de la trayectoria profesional de Ryan', label: 'Familia' },
-  { image: teamPhotoTwo, alt: 'Ryan junto a su equipo de trabajo', label: 'Familia' },
-]
 
 function Hero() {
-  const [activeSlide, setActiveSlide] = useState(0)
+  const videoContainerRef = useRef(null)
+  const [isVideoVisible, setIsVideoVisible] = useState(true)
 
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      setActiveSlide((currentSlide) => (currentSlide + 1) % heroSlides.length)
-    }, 2500)
+    const videoContainer = videoContainerRef.current
 
-    return () => window.clearTimeout(timeoutId)
-  }, [activeSlide])
+    if (!videoContainer) {
+      return undefined
+    }
 
-  const currentSlide = heroSlides[activeSlide]
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVideoVisible(entry.isIntersecting),
+      { threshold: 0.35 },
+    )
 
-  const showSlide = (index) => {
-    setActiveSlide(index)
-  }
+    observer.observe(videoContainer)
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <main className="app-main">
@@ -76,23 +65,15 @@ function Hero() {
                 <i>+</i>
                 <i>×</i>
               </div>
-              <div className="hero__banner-slider">
-                <figure key={activeSlide} className="hero__banner-slide">
-                  <img src={currentSlide.image} alt={currentSlide.alt} />
-                  <figcaption>{currentSlide.label}</figcaption>
-                </figure>
-                <div className="hero__banner-dots" aria-label="Imagen actual">
-                  {heroSlides.map((slide, index) => (
-                    <button
-                      key={`${slide.label}-${index}`}
-                      type="button"
-                      className={index === activeSlide ? 'is-active' : ''}
-                      aria-label={`Mostrar ${slide.label.toLowerCase()}`}
-                      aria-pressed={index === activeSlide}
-                      onClick={() => showSlide(index)}
-                    />
-                  ))}
-                </div>
+              <div ref={videoContainerRef} className="hero__banner-video">
+                {isVideoVisible && (
+                  <iframe
+                    src="https://app.heygen.com/embeds/605aa1fa50e945b6aef7602efdbe60be"
+                    title="Video de presentación de Ryan Rivera"
+                    allow="encrypted-media; fullscreen"
+                    allowFullScreen
+                  />
+                )}
               </div>
             </aside>
           </div>

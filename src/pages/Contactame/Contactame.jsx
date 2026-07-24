@@ -26,7 +26,7 @@ function Contactame() {
 		<section id="contacto" className="contactame" aria-labelledby="contactame-title">
 			<div className="contactame__inner">
 				<div className="contactame__intro">
-					<p className="contactame__eyebrow">&gt;04  CONTACTO</p>
+					<p className="contactame__eyebrow">04  CONTACTO</p>
 					<h2 id="contactame-title"><span>Hablemos</span><span>de tu <mark>proyecto</mark></span></h2>
 					<p className="contactame__lead">¿Tienes una idea, proyecto o propuesta? Estoy listo para convertirlo en una <strong>solución digital real.</strong></p>
 

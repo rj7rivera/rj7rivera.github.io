@@ -24,6 +24,8 @@
 }
 
 .experiencia__column {
+	display: flex;
+	flex-direction: column;
 	min-width: 0;
 	/* Margen interior amplio para separar las tarjetas de los bordes y entre sí. */
 	padding: 68px clamp(48px, 7vw, 112px) 86px;
@@ -53,7 +55,7 @@
 	gap: 12px;
 	margin: 0 0 20px;
 	font-family: monospace;
-	font-size: 1rem;
+	font-size: 1.4rem;
 	font-weight: 900;
 	letter-spacing: 0.07em;
 }
@@ -64,6 +66,8 @@
 }
 
 .experience-card {
+	width: 100%;
+	flex: 1;
 	position: relative;
 	/* Ancho contenido para mantener espacio visible alrededor de ambas tarjetas. */
 	max-width: 560px;

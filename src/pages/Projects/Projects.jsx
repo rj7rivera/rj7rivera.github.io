@@ -172,7 +172,7 @@ function Projects() {
     <section id="proyectos" className="projects" aria-labelledby="projects-title">
       <div className="projects__inner">
         <header className="projects__header">
-          <p className="projects__eyebrow"><span aria-hidden="true" /> 02 / PROYECTOS</p>
+          <p className="projects__eyebrow"><span aria-hidden="true" /> 02  PROYECTOS</p>
           <h2 id="projects-title">PROYECTOS QUE CONVIERTEN<br />IDEAS EN <mark>SOLUCIONES</mark>.</h2>
           <div className="projects__rule" aria-hidden="true" />
           <p className="projects__intro">Selección de trabajos donde el código, el diseño y la experiencia se unen para resolver problemas reales.</p>

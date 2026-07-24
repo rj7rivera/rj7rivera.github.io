@@ -7,7 +7,7 @@ function Banner() {
       <div className="banner__content">
         <FaFire className="banner__icon" aria-hidden="true" />
         <p className="banner__text">
-          <strong></strong> La obsesión vence al talento siempre. Puedes tener todo el talento del mundo, pero ¿estás obsesionado
+          <strong></strong> La obsesión vence al talento siempre. Puedes tener todo el talento del mundo, pero ¿estás obsesionado?
         </p>
       </div>
     </div>
