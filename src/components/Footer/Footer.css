@@ -158,7 +158,7 @@
   height: clamp(150px, 20vw, 285px);
   margin: 0;
   color: transparent;
-  font-size: clamp(7rem, 20vw, 19rem);
+  font-size: clamp(7rem, 14vw, 17rem);
   font-weight: 900;
   letter-spacing: 0;
   line-height: 0.82;

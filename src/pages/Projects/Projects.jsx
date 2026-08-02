@@ -1,7 +1,30 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { FiArrowLeft, FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
+import { FiArrowLeft, FiArrowRight, FiArrowUpRight, FiGithub } from 'react-icons/fi'
+import {
+  SiCss,
+  SiExpress,
+  SiHtml5,
+  SiJavascript,
+  SiPostgresql,
+  SiReact,
+  SiSupabase,
+  SiTailwindcss,
+  SiVite,
+} from 'react-icons/si'
 import { projects } from './projectsData'
 import './Projects.css'
+
+const technologyIcons = {
+  css: SiCss,
+  express: SiExpress,
+  html: SiHtml5,
+  javascript: SiJavascript,
+  postgresql: SiPostgresql,
+  react: SiReact,
+  supabase: SiSupabase,
+  tailwind: SiTailwindcss,
+  vite: SiVite,
+}
 
 function ProjectPreview({ type, image, imageVariant, title }) {
   if (image) {
@@ -90,19 +113,37 @@ function ProjectCard({ project, isDuplicate = false }) {
         title={project.title}
       />
       <div className="project-card__body">
+        <div className="project-card__meta">
+          <span>PROYECTO {project.id}</span>
+          <small>{project.category}</small>
+        </div>
         <h3>{project.title}</h3>
-        <p>{project.description}</p>
-        <ul aria-label={`Tecnologías de ${project.title}`}>
-          {project.technologies.map((technology) => <li key={technology}>{technology}</li>)}
+        <p className="project-card__description">{project.description}</p>
+        <ul className="project-card__technologies" aria-label={`Tecnologías de ${project.title}`}>
+          {project.technologies.map((technology) => {
+            const TechnologyIcon = technologyIcons[technology.icon]
+
+            return (
+              <li key={technology.name}>
+                <TechnologyIcon aria-hidden="true" />
+                <span>{technology.name}</span>
+                <small>{technology.level}</small>
+              </li>
+            )
+          })}
         </ul>
-        <a
-          href={project.url}
-          target={project.external ? '_blank' : undefined}
-          rel={project.external ? 'noreferrer' : undefined}
-          tabIndex={isDuplicate ? -1 : undefined}
-        >
-          Ver proyecto <FiArrowUpRight aria-hidden="true" />
-        </a>
+        <div className="project-card__actions">
+          {project.demoUrl ? (
+            <a href={project.demoUrl} target="_blank" rel="noreferrer" tabIndex={isDuplicate ? -1 : undefined}>
+              Ver proyecto <FiArrowUpRight aria-hidden="true" />
+            </a>
+          ) : (
+            <span className="is-disabled" aria-label="Demostración no publicada">Demo no disponible</span>
+          )}
+          <a href={project.repositoryUrl} target="_blank" rel="noreferrer" tabIndex={isDuplicate ? -1 : undefined}>
+            <FiGithub aria-hidden="true" /> Ver código
+          </a>
+        </div>
       </div>
     </article>
   )
@@ -120,7 +161,6 @@ function Projects() {
 
     const intervalId = window.setInterval(() => {
       setCurrentPosition((position) => position + 1)
-      // Ajusta este valor en milisegundos para cambiar la velocidad del banner.
     }, 3500)
 
     return () => window.clearInterval(intervalId)
@@ -158,14 +198,6 @@ function Projects() {
     }
   }
 
-  const showPreviousProject = () => {
-    setCurrentPosition((position) => position - 1)
-  }
-
-  const showNextProject = () => {
-    setCurrentPosition((position) => position + 1)
-  }
-
   const activeProject = currentPosition % projects.length
 
   return (
@@ -190,18 +222,14 @@ function Projects() {
             style={{ transform: `translate3d(-${trackOffset}px, 0, 0)` }}
             onTransitionEnd={handleTrackTransitionEnd}
           >
-            {projects.map((project) => (
-              <ProjectCard project={project} isDuplicate key={`before-${project.id}`} />
-            ))}
+            {projects.map((project) => <ProjectCard project={project} isDuplicate key={`before-${project.id}`} />)}
             {projects.map((project) => <ProjectCard project={project} key={project.id} />)}
-            {projects.map((project) => (
-              <ProjectCard project={project} isDuplicate key={`after-${project.id}`} />
-            ))}
+            {projects.map((project) => <ProjectCard project={project} isDuplicate key={`after-${project.id}`} />)}
           </div>
         </div>
 
         <div className="projects__controls">
-          <button type="button" onClick={showPreviousProject} aria-label="Mostrar proyecto anterior">
+          <button type="button" onClick={() => setCurrentPosition((position) => position - 1)} aria-label="Mostrar proyecto anterior">
             <FiArrowLeft aria-hidden="true" />
           </button>
           <div className="projects__dots" aria-label="Seleccionar proyecto">
@@ -216,7 +244,7 @@ function Projects() {
               />
             ))}
           </div>
-          <button type="button" onClick={showNextProject} aria-label="Mostrar proyecto siguiente">
+          <button type="button" onClick={() => setCurrentPosition((position) => position + 1)} aria-label="Mostrar proyecto siguiente">
             <FiArrowRight aria-hidden="true" />
           </button>
         </div>

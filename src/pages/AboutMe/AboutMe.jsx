@@ -44,7 +44,7 @@ function AboutMe() {
             <div className="about__title-underline" />
 
             <p className="about__description">
-              Soy Ryan Rivera, Ingeniero en Computación e Informática y desarrollador frontend especializado en <strong>React</strong> y diseño <strong>UI/UX</strong>.
+              Soy Ryan Rivera, Ingeniero en Computación e Informática y desarrollador frontend con pasion en <strong>React</strong> y diseño <strong>UI/UX</strong>.
             </p>
 
             <p className="about__description">

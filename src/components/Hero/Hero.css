@@ -122,38 +122,6 @@
   background: rgba(255, 255, 255, 0.04);
 }
 
-.hero__stack {
-  margin-top: 24px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.hero__stack span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.2rem;
-  color: #d8dde0;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 10px 12px;
-  border-radius: 6px;
-  transition: color 200ms ease, border-color 200ms ease, transform 180ms ease;
-}
-
-.hero__stack span.icon--react  { color: #61dafb; border-color: rgba(97,218,251,0.3); }
-.hero__stack span.icon--js     { color: #f7df1e; border-color: rgba(247,223,30,0.3); }
-.hero__stack span.icon--vite   { color: #a259ff; border-color: rgba(162,89,255,0.3); }
-.hero__stack span.icon--html   { color: #e34f26; border-color: rgba(227,79,38,0.3); }
-.hero__stack span.icon--css    { color: #1572b6; border-color: rgba(21,114,182,0.3); }
-.hero__stack span.icon--figma  { color: #f24e1e; border-color: rgba(242,78,30,0.3); }
-
-.hero__stack span:hover {
-  filter: brightness(1.2);
-  transform: translateY(-2px);
-}
-
 .hero__right {
   display: flex;
   align-items: center;

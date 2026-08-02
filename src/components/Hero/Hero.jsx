@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import './Hero.css'
-import { FaReact, FaJs, FaHtml5, FaCss3Alt, FaFigma } from 'react-icons/fa'
-import { SiVite } from 'react-icons/si'
 
 function Hero() {
   const videoContainerRef = useRef(null)
@@ -47,15 +45,6 @@ function Hero() {
               <a href="#contacto" className="hero__button hero__button--ghost">
                 CONTACTAME <span aria-hidden="true">/</span>
               </a>
-            </div>
-
-            <div className="hero__stack" aria-label="Tecnologias">
-              <span title="React" className="icon--react"><FaReact /></span>
-              <span title="JavaScript" className="icon--js"><FaJs /></span>
-              <span title="Vite" className="icon--vite"><SiVite /></span>
-              <span title="HTML5" className="icon--html"><FaHtml5 /></span>
-              <span title="CSS3" className="icon--css"><FaCss3Alt /></span>
-              <span title="Figma" className="icon--figma"><FaFigma /></span>
             </div>
           </div>
           <div className="hero__right">
