@@ -41,7 +41,7 @@ export const projects = [
     image: cazaTalentosHero,
     imageVariant: 'caza-talentos',
     repositoryUrl: 'https://github.com/rj7rivera/CazaTalento',
-    demoUrl: null,
+    demoUrl: 'https://caza-talento.vercel.app/',
   },
   {
     id: '05',
