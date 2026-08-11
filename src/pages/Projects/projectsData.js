@@ -59,7 +59,7 @@ export const projects = [
     ],
     preview: 'enrollment',
     repositoryUrl: 'https://github.com/rj7rivera/Sistema-Matriculacion-RJ7',
-    demoUrl: null,
+    demoUrl: 'https://sistema-matriculacion-rj7.vercel.app/',
   },
   {
     id: '06',
