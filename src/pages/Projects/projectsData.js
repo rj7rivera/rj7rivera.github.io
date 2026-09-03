@@ -4,7 +4,7 @@ import vendedoresUesgImage from '../../assets/image/projects/vendedores uesg.png
 
 export const projects = [
   {
-    id: '03',
+    id: '01',
     fileName: 'vendedores_uesg.exe',
     title: 'Vendedores UESG',
     category: 'FULL STACK / PWA',
@@ -24,7 +24,7 @@ export const projects = [
     demoUrl: null,
   },
   {
-    id: '04',
+    id: '02',
     fileName: 'caza_talentos.exe',
     title: 'Caza de Talentos',
     category: 'FULL STACK / E-COMMERCE',
@@ -44,7 +44,7 @@ export const projects = [
     demoUrl: 'https://caza-talento.vercel.app/',
   },
   {
-    id: '05',
+    id: '03',
     fileName: 'matriculacion_rj7.exe',
     title: 'Sistema de Matriculación',
     category: 'FULL STACK / EDUCACIÓN',
@@ -62,7 +62,7 @@ export const projects = [
     demoUrl: 'https://sistema-matriculacion-rj7.vercel.app/',
   },
   {
-    id: '06',
+    id: '04',
     fileName: 'uesg_moda.exe',
     title: 'UESG Moda',
     category: 'FRONTEND / CATÁLOGO',
@@ -70,14 +70,14 @@ export const projects = [
     contribution: 'Desarrollo frontend del catálogo y sus recorridos de navegación.',
     features: ['Colecciones Urban, Sports y Recover', 'Sección de personalización DTF', 'Carruseles y blog'],
     technologies: [
-      { name: 'HTML5', level: 'Principal', icon: 'html' },
+      { name: 'React', level: 'Principal', icon: 'react' },
       { name: 'CSS3', level: 'Uso alto', icon: 'css' },
       { name: 'JavaScript', level: 'Uso medio', icon: 'javascript' },
-      { name: 'Owl Carousel', level: 'Complementario', icon: 'javascript' },
+      { name: 'Vite', level: 'Complementario', icon: 'vite' },
     ],
     preview: 'sales',
     image: uesgModaLogo,
-    repositoryUrl: 'https://github.com/rj7rivera/UESG---MODA',
-    demoUrl: null,
+    repositoryUrl: 'https://github.com/rj7rivera/UESG-MODA',
+    demoUrl: 'https://uesg-moda.vercel.app',
   },
 ]

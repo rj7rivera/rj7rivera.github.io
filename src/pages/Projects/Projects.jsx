@@ -138,7 +138,7 @@ function ProjectCard({ project, isDuplicate = false }) {
               Ver proyecto <FiArrowUpRight aria-hidden="true" />
             </a>
           ) : (
-            <span className="is-disabled" aria-label="Demostración no publicada">Demo no disponible</span>
+            <span className="is-disabled" aria-disabled="true">Demo no disponible</span>
           )}
           <a href={project.repositoryUrl} target="_blank" rel="noreferrer" tabIndex={isDuplicate ? -1 : undefined}>
             <FiGithub aria-hidden="true" /> Ver código

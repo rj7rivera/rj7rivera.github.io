@@ -1,6 +1,8 @@
 .experiencia {
 	--grid-size: 60px;
 	--grid-line: 2px;
+	/* Aumenta este tiempo para que las cuadrículas se muevan más lento. */
+	--grid-animation-duration: 6s;
 	position: relative;
 	min-height: 100vh;
 	overflow: hidden;
@@ -30,7 +32,7 @@
 	/* Margen interior amplio para separar las tarjetas de los bordes y entre sí. */
 	padding: 68px clamp(48px, 7vw, 112px) 86px;
 	background-size: var(--grid-size) var(--grid-size);
-	animation: grid-drift 3s linear infinite;
+	animation: grid-drift var(--grid-animation-duration) linear infinite;
 }
 
 .experiencia__column--light {

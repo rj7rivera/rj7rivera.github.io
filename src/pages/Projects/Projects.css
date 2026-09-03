@@ -513,8 +513,7 @@
   padding-top: 4px;
 }
 
-.project-card__actions a,
-.project-card__actions .is-disabled {
+.project-card__actions :is(a, span) {
   display: inline-flex;
   min-height: 38px;
   align-items: center;
@@ -527,6 +526,13 @@
   font-size: 0.72rem;
   font-weight: 800;
   text-decoration: none;
+}
+
+.project-card__actions .is-disabled {
+  cursor: not-allowed;
+  border-color: #66706c;
+  color: #8f9a9c;
+  background: transparent;
 }
 
 .project-card__actions a svg {
@@ -543,12 +549,6 @@
 .project-card__actions a:hover svg,
 .project-card__actions a:focus-visible svg {
   transform: translate(2px, -2px);
-}
-
-.project-card__actions .is-disabled {
-  border-color: #354044;
-  color: #778184;
-  cursor: not-allowed;
 }
 
 .projects__controls {

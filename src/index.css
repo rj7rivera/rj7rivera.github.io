@@ -4,8 +4,8 @@
   /* Usa valores enteros para evitar que los bordes se vean "cortados" */
   --grid-size: 50px;
   --grid-thickness: 1px;
-  /* Ajusta la velocidad si quieres que los cuadros se muevan mas rapido o mas lento */
-  --grid-animation-duration: 3s;
+  /* Velocidad de la cuadricula: aumenta este tiempo para hacer el movimiento mas lento. */
+  --grid-animation-duration: 6s;
   --text: #f7f7f7;
   font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
   font-synthesis: none;
