@@ -1,5 +1,5 @@
-import './Banner.css'
 import { FaFire } from 'react-icons/fa'
+import './Banner.css'
 
 function Banner() {
   return (

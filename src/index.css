@@ -1,11 +1,13 @@
 :root {
   --bg-main: #020202;
-  --grid-line: rgba(255, 255, 255, 0.82);
-  /* Usa valores enteros para evitar que los bordes se vean "cortados" */
-  --grid-size: 50px;
-  --grid-thickness: 1px;
-  /* Velocidad de la cuadricula: aumenta este tiempo para hacer el movimiento mas lento. */
-  --grid-animation-duration: 6s;
+  /* Linea sutil y limpia: sin velos encima, solo se gradua su propia opacidad. */
+  --grid-line: rgba(255, 255, 255, 0.22);
+  /* Mismo porte que la cuadricula de la seccion Experiencia. */
+  --grid-size: 60px;
+  --grid-thickness: 2px;
+  /* Deriva algo mas viva, sin llegar a resultar molesta. */
+  --grid-animation-duration: 11s;
+  --grid-opacity: 1;
   --text: #f7f7f7;
   font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
   font-synthesis: none;
@@ -35,8 +37,32 @@ section[id] {
 }
 
 body {
+  position: relative;
   color: var(--text);
   background-color: var(--bg-main);
+  outline: 1px solid var(--grid-line);
+  outline-offset: -1px;
+}
+
+/* ------------------------------------------------------------------ *
+ * CUADRICULA TECNICA DE FONDO
+ * Antes se animaba `background-position` sobre un fondo a pantalla completa:
+ * no es una propiedad compositable y obligaba a repintar todo el viewport en
+ * cada frame. Ahora la cuadricula vive en una capa propia que se desplaza con
+ * `transform: translate3d`, que la GPU resuelve sin repintar.
+ * ------------------------------------------------------------------ */
+body::before {
+  content: '';
+  position: fixed;
+  /* Se extiende un mosaico por arriba y por la izquierda para que el bucle
+     de desplazamiento nunca deje un borde vacio. */
+  top: calc(var(--grid-size) * -1);
+  left: calc(var(--grid-size) * -1);
+  width: calc(100% + var(--grid-size) * 2);
+  height: calc(100% + var(--grid-size) * 2);
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--grid-opacity);
   background-image:
     linear-gradient(
       to right,
@@ -54,26 +80,56 @@ body {
     );
   background-size: var(--grid-size) var(--grid-size);
   background-repeat: repeat;
-  background-position: left top;
-  background-attachment: fixed;
   animation: grid-drift var(--grid-animation-duration) linear infinite;
-  outline: 1px solid var(--grid-line);
-  outline-offset: -1px;
+  will-change: transform;
 }
 
 @keyframes grid-drift {
   from {
-    background-position: 0 0, 0 0;
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    background-position: var(--grid-size) var(--grid-size),
-      var(--grid-size) var(--grid-size);
+    transform: translate3d(var(--grid-size), var(--grid-size), 0);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  body {
+/* En movil la deriva continua no aporta y cuesta bateria y FPS. */
+@media (max-width: 767px) {
+  body::before {
     animation: none;
+    will-change: auto;
+  }
+}
+
+.motion-line {
+  display: block;
+}
+
+.motion-line-inner {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ *
+ * REDUCCION DE MOVIMIENTO
+ * Se elimina el movimiento, nunca el contenido.
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body::before {
+    animation: none;
+    will-change: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

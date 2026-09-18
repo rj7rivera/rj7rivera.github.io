@@ -32,11 +32,20 @@
   letter-spacing: 0.06em;
 }
 
-.hero__kicker span {
+.hero__kicker-mark {
+  display: inline-block;
   background: #bfff25;
   color: #091006;
   padding: 4px 9px;
   border-radius: 2px;
+}
+
+.hero__line {
+  display: block;
+}
+
+.hero__line-inner {
+  display: block;
 }
 
 .hero__title {
@@ -85,6 +94,8 @@
 }
 
 .hero__button {
+  position: relative;
+  overflow: hidden;
   min-width: 188px;
   padding: 12px 18px;
   border-radius: 9px;
@@ -97,7 +108,24 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+
+/* El contenido va por encima del relleno verde: el texto nunca pierde legibilidad. */
+.hero__button-label,
+.hero__button-arrow {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__button-arrow {
+  display: inline-block;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__button:hover .hero__button-arrow,
+.hero__button:focus-visible .hero__button-arrow {
+  transform: translateX(4px);
 }
 
 .hero__button--primary {
@@ -106,14 +134,41 @@
   box-shadow: 0 8px 22px rgba(191, 255, 37, 0.2);
 }
 
+.hero__button--primary:hover {
+  box-shadow: 0 12px 28px rgba(191, 255, 37, 0.34);
+}
+
 .hero__button--ghost {
   color: #f3f5f6;
   border: 1px solid rgba(191, 255, 37, 0.45);
   background: rgba(255, 255, 255, 0.03);
+  transition: box-shadow 200ms ease, border-color 200ms ease, color 200ms ease;
 }
 
-.hero__button:hover {
-  transform: translateY(-2px);
+/* Relleno verde que se expande horizontalmente, sin animar `width`. */
+.hero__button--ghost::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(191, 255, 37, 0.14);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__button--ghost:hover,
+.hero__button--ghost:focus-visible {
+  border-color: rgba(191, 255, 37, 0.9);
+}
+
+.hero__button--ghost:hover::before,
+.hero__button--ghost:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.hero__button:active {
+  transform: scale(0.985);
 }
 
 .hero__button--download {
@@ -137,7 +192,12 @@
   color: #f5f7f3;
   background: #181818;
   box-shadow: 12px 12px 0 rgba(191, 255, 37, 0.22);
-  animation: float 6s ease-in-out infinite;
+  transition: box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.hero__banner:hover {
+  border-color: rgba(191, 255, 37, 0.55);
+  box-shadow: 12px 12px 0 rgba(191, 255, 37, 0.34);
 }
 
 .hero__banner-bar {
@@ -171,15 +231,6 @@
   width: 100%;
   height: 315px;
   border: 0;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
 }
 
 @media (max-width: 900px) {
@@ -230,5 +281,14 @@
     width: 27px;
     height: 27px;
     font-size: 1.55rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__button,
+  .hero__button--ghost,
+  .hero__button--ghost::before,
+  .hero__button-arrow,
+  .hero__banner {
+    transition: none;
   }
 }

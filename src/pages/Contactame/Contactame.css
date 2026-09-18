@@ -40,6 +40,11 @@
 	text-transform: uppercase;
 }
 
+/* El titular se compone por lineas para poder revelarlo con mascara vertical. */
+.contactame h2 .motion-line-inner {
+	display: block;
+}
+
 .contactame h2 mark {
 	color: var(--accent);
 	background: transparent;
@@ -72,22 +77,40 @@
 .contactame__details a,
 .contactame__details p {
 	display: grid;
-	grid-template-columns: 42px minmax(0, 1fr);
+	/* Ancho fijo del icono: mantiene las 4 filas alineadas en la misma columna. */
+	grid-template-columns: 47px minmax(0, 1fr);
 	gap: 13px;
 	align-items: center;
+	/* Alto identico en las 4 filas para que ninguna se desplace. */
+	min-height: 47px;
 	margin: 0;
+	padding: 0;
 	color: #d0d5d5;
 	font-size: 1rem;
 	line-height: 1.3;
 	text-decoration: none;
 }
 
+.contactame__details a {
+	/* Sin desplazamiento en hover: las filas deben quedar siempre rectas. */
+	transition: color 200ms ease;
+}
+
 .contactame__details svg {
 	width: 47px;
 	height: 47px;
 	padding: 10px;
+	/* flex/grid no deben encoger el icono: asegura el mismo tamano en todas las filas. */
+	flex: 0 0 47px;
+	box-sizing: border-box;
 	border: 1px solid rgba(174, 240, 0, 0.64);
 	color: var(--accent);
+	transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.contactame__details a:hover svg {
+	border-color: var(--accent);
+	background: rgba(174, 240, 0, 0.12);
 }
 
 .contactame__details a:hover span {
@@ -189,6 +212,7 @@
 	color: #f4f6f1;
 	background: rgba(255, 255, 255, 0.025);
 	font: 500 1.06rem 'Space Grotesk', sans-serif;
+	transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
 }
 
 .contactame__fields input {
@@ -229,6 +253,21 @@
 	font: 900 1rem monospace;
 	letter-spacing: 0.05em;
 	cursor: pointer;
+	transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.contactame__form button svg {
+	transition: transform 200ms ease;
+}
+
+.contactame__form button:hover svg,
+.contactame__form button:focus-visible svg {
+	transform: translate(3px, -3px);
+}
+
+.contactame__form button:active {
+	transform: translate(0, 0);
+	box-shadow: 3px 3px 0 rgba(174, 240, 0, 0.3);
 }
 
 .contactame__form button:hover,
@@ -254,6 +293,23 @@
 	background: rgba(174, 240, 0, 0.08);
 	font-size: 0.9rem;
 	line-height: 1.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.contactame__form button,
+	.contactame__form button svg,
+	.contactame__details a,
+	.contactame__details svg,
+	.contactame__fields input,
+	.contactame__fields textarea {
+		transition: none;
+	}
+
+	.contactame__form button:hover,
+	.contactame__form button:active,
+	.contactame__form button:hover svg {
+		transform: none;
+	}
 }
 
 @media (max-width: 900px) {

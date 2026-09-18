@@ -3,9 +3,9 @@ import profileImage from '../../assets/image/SOBRE MI.png'
 import IconoFormacion from '../../assets/image/icono-seccion_sobre mi/IconoFormacion.png'
 import IconoEspecializacion from '../../assets/image/icono-seccion_sobre mi/IconoEspecializacion.png'
 import IconoEnfoque from '../../assets/image/icono-seccion_sobre mi/IconoEnfoque.png'
+import teachingResume from '../../assets/CV_Ryan Rivera_Docente.docx.pdf'
 import ProfileScreen from '../../components/ProfileScreen/ProfileScreen'
-import { FiMail } from 'react-icons/fi'
-
+import { FiDownload } from 'react-icons/fi'
 
 function AboutMe() {
   return (
@@ -38,7 +38,14 @@ function AboutMe() {
 
           <div className="about__right">
             <h3 className="about__title">
-              MÁS QUE CÓDIGO,<br />CREO <span className="highlight">EXPERIENCIAS</span>.
+              <span className="motion-line">
+                <span className="motion-line-inner">MÁS QUE CÓDIGO,</span>
+              </span>
+              <span className="motion-line">
+                <span className="motion-line-inner">
+                  CREO <span className="highlight">EXPERIENCIAS</span>.
+                </span>
+              </span>
             </h3>
 
             <div className="about__title-underline" />
@@ -85,9 +92,13 @@ function AboutMe() {
             </div>
 
             <div className="about__cta-row">
-              <a className="about__button" href="#contacto">
-                SOLICITAR CV
-                <FiMail aria-hidden="true" />
+              <a
+                className="about__button"
+                href={teachingResume}
+                download="CV-Ryan-Rivera-Docente.pdf"
+              >
+                DESCARGAR CV
+                <FiDownload aria-hidden="true" />
               </a>
               <p className="about__cta-copy">Conoce más sobre mi experiencia y los proyectos que he construido.</p>
             </div>

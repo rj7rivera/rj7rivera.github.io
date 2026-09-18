@@ -1,15 +1,8 @@
 import './Experiencia.css'
 import experienceBadge from '../../assets/image/experiencia/3c06c93b-abbb-47b0-a751-3f23afd8eaf7-Photoroom.png'
-import {
-	FiBookOpen,
-	FiBox,
-	FiClipboard,
-	FiCpu,
-	FiFolder,
-	FiMonitor,
-	FiSettings,
-	FiTruck,
-} from 'react-icons/fi'
+import avatarIdle from '../../assets/animacion1.png'
+import avatarHover from '../../assets/animacion2.png'
+import { FiBookOpen, FiCpu } from 'react-icons/fi'
 
 const teachingAchievements = [
 	['Metodologías activas', 'Implementación del enfoque pedagógico ERCA para dinamizar el aprendizaje y fomentar el pensamiento crítico.'],
@@ -21,17 +14,32 @@ const teachingAchievements = [
 ]
 
 const supportAchievements = [
-	[FiTruck, 'Optimización logística', 'Coordinación de recepción y despacho de mercancía cumpliendo KPIs de tiempo de respuesta.'],
-	[FiClipboard, 'Control de inventarios y precisión', 'Auditorías, stock y disponibilidad crítica para reducir inconsistencias.'],
-	[FiBox, 'Eficiencia en picking', 'Preparación de pedidos y mejora continua de la productividad del área.'],
-	[FiMonitor, 'Administración digital (ERP)', 'Kardex, guías de remisión y control documental para garantizar trazabilidad.'],
-	[FiFolder, 'Gestión documental y soporte TI', 'Digitalización, organización y acceso a datos clave para la toma de decisiones.'],
-	[FiSettings, 'Continuidad operativa', 'Operación de montacargas y apoyo al flujo estratégico de mercancía.'],
+	['Optimización logística', 'Coordinación de recepción y despacho de mercancía cumpliendo KPIs de tiempo de respuesta.'],
+	['Control de inventarios y precisión', 'Auditorías, stock y disponibilidad crítica para reducir inconsistencias.'],
+	['Eficiencia en picking', 'Preparación de pedidos y mejora continua de la productividad del área.'],
+	['Administración digital (ERP)', 'Kardex, guías de remisión y control documental para garantizar trazabilidad.'],
+	['Gestión documental y soporte TI', 'Digitalización, organización y acceso a datos clave para la toma de decisiones.'],
+	['Continuidad operativa', 'Operación de montacargas y apoyo al flujo estratégico de mercancía.'],
 ]
 
 function Experiencia() {
 	return (
-		<section id="experiencia" className="experiencia" aria-label="Experiencia profesional">
+		<section
+			id="experiencia"
+			className="experiencia"
+			aria-label="Experiencia profesional"
+		>
+			<div className="experiencia__avatar" tabIndex={0} role="img" aria-label="Caricatura de Ryan Rivera">
+				<span className="experiencia__avatar-bar" aria-hidden="true">
+					<b></b>
+					<i className="experiencia__avatar-led" />
+				</span>
+				<span className="experiencia__avatar-stage" aria-hidden="true">
+					<img className="experiencia__avatar-pose experiencia__avatar-pose--idle" src={avatarIdle} alt="" />
+					<img className="experiencia__avatar-pose experiencia__avatar-pose--hover" src={avatarHover} alt="" />
+				</span>
+				<span className="experiencia__avatar-status" aria-hidden="true">RYAN </span>
+			</div>
 			<img className="experiencia__badge" src={experienceBadge} alt="" aria-hidden="true" />
 			<div className="experiencia__content">
 				<div className="experiencia__column experiencia__column--light">
@@ -68,7 +76,7 @@ function Experiencia() {
 							<span className="experience-card__icon"><FiCpu aria-hidden="true" /></span>
 							<div>
 								<h2>Soporte Técnico</h2>
-								<p><strong>Banariego Cía. Ltda.</strong> <i aria-hidden="true">•</i> Jornada completa</p>
+								<p><strong>Banariego Cía. Ltda</strong> <i aria-hidden="true">•</i> </p>
 							</div>
 							<span className="experience-card__menu" aria-hidden="true">•••</span>
 						</header>
@@ -76,14 +84,14 @@ function Experiencia() {
 							Gestioné operaciones logísticas, trazabilidad de activos y optimización de flujos de trabajo mediante ERP, control de inventarios y soporte técnico operativo.
 						</p>
 						<h3>Logros y responsabilidades clave</h3>
-						<ul className="experience-card__support-list">
-							{supportAchievements.map(([Icon, title, description]) => (
+						<ol className="experience-card__support-list">
+							{supportAchievements.map(([title, description], index) => (
 								<li key={title}>
-									<span><Icon aria-hidden="true" /></span>
+									<span>{String(index + 1).padStart(2, '0')}</span>
 									<p><strong>{title}:</strong> {description}</p>
 								</li>
 							))}
-						</ul>
+						</ol>
 					</article>
 				</div>
 			</div>

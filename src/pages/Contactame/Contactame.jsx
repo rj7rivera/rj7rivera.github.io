@@ -27,7 +27,10 @@ function Contactame() {
 			<div className="contactame__inner">
 				<div className="contactame__intro">
 					<p className="contactame__eyebrow">04  CONTACTO</p>
-					<h2 id="contactame-title"><span>Hablemos</span><span>de tu <mark>proyecto</mark></span></h2>
+					<h2 id="contactame-title">
+						<span className="motion-line"><span className="motion-line-inner">Hablemos</span></span>
+						<span className="motion-line"><span className="motion-line-inner">de tu <mark>proyecto</mark></span></span>
+					</h2>
 					<p className="contactame__lead">¿Tienes una idea, proyecto o propuesta? Estoy listo para convertirlo en una <strong>solución digital real.</strong></p>
 
 					<address className="contactame__details">

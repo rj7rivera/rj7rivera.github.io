@@ -5,7 +5,6 @@ import {
   SiExpress,
   SiHtml5,
   SiJavascript,
-  SiPostgresql,
   SiReact,
   SiSupabase,
   SiTailwindcss,
@@ -19,7 +18,6 @@ const technologyIcons = {
   express: SiExpress,
   html: SiHtml5,
   javascript: SiJavascript,
-  postgresql: SiPostgresql,
   react: SiReact,
   supabase: SiSupabase,
   tailwind: SiTailwindcss,
@@ -156,8 +154,16 @@ function Projects() {
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(false)
   const trackRef = useRef(null)
 
+  // El autoplay es movimiento automático: se desactiva si el usuario pide
+  // reducción de movimiento y se pausa al interactuar con teclado o puntero.
   useEffect(() => {
     if (isPaused) return undefined
+
+    const prefersReducedMotion =
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion) return undefined
 
     const intervalId = window.setInterval(() => {
       setCurrentPosition((position) => position + 1)
@@ -167,12 +173,21 @@ function Projects() {
   }, [isPaused])
 
   useLayoutEffect(() => {
+    const track = trackRef.current
+
     const updateTrackOffset = () => {
-      const activeCard = trackRef.current?.querySelectorAll('.project-card')[currentPosition]
+      const activeCard = track?.querySelectorAll('.project-card')[currentPosition]
       setTrackOffset(activeCard?.offsetLeft ?? 0)
     }
 
     updateTrackOffset()
+
+    if (typeof ResizeObserver !== 'undefined' && track) {
+      const resizeObserver = new ResizeObserver(updateTrackOffset)
+      resizeObserver.observe(track)
+      return () => resizeObserver.disconnect()
+    }
+
     window.addEventListener('resize', updateTrackOffset)
 
     return () => window.removeEventListener('resize', updateTrackOffset)
@@ -205,7 +220,14 @@ function Projects() {
       <div className="projects__inner">
         <header className="projects__header">
           <p className="projects__eyebrow"><span aria-hidden="true" /> 02  PROYECTOS</p>
-          <h2 id="projects-title">PROYECTOS QUE CONVIERTEN<br />IDEAS EN <mark>SOLUCIONES</mark>.</h2>
+          <h2 id="projects-title">
+            <span className="motion-line">
+              <span className="motion-line-inner">PROYECTOS QUE CONVIERTEN</span>
+            </span>
+            <span className="motion-line">
+              <span className="motion-line-inner">IDEAS EN <mark>SOLUCIONES</mark>.</span>
+            </span>
+          </h2>
           <div className="projects__rule" aria-hidden="true" />
           <p className="projects__intro">Selección de trabajos donde el código, el diseño y la experiencia se unen para resolver problemas reales.</p>
         </header>
@@ -215,6 +237,8 @@ function Projects() {
           aria-label="Carrusel de proyectos"
           onPointerEnter={() => setIsPaused(true)}
           onPointerLeave={() => setIsPaused(false)}
+          onFocusCapture={() => setIsPaused(true)}
+          onBlurCapture={() => setIsPaused(false)}
         >
           <div
             className={`projects__track ${isTransitionEnabled ? 'is-animated' : ''}`}

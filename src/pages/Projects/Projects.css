@@ -14,7 +14,7 @@
 }
 
 .projects__header {
-  max-width: 820px;
+  max-width: 980px;
   margin-bottom: 26px;
 }
 
@@ -32,11 +32,21 @@
 
 .projects h2 {
   margin: 0;
-  font-size: clamp(2.2rem, 5vw, 4.15rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* La escala se calcula para que cada linea entre completa y el titulo quede en 2 filas. */
+  font-size: clamp(1.9rem, 3.55vw, 3.5rem);
   font-weight: 900;
-  line-height: 1.02;
+  line-height: 1.04;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+.projects h2 span {
+  display: block;
+  /* Evita que la linea se parta en un tercer renglon. */
+  white-space: nowrap;
 }
 
 .projects h2 mark {
@@ -71,6 +81,8 @@
   gap: 25px;
   width: max-content;
   min-width: 100%;
+  /* `will-change` justificado: la pista se traslada cada 3.5 s durante toda la
+     vida de la pagina, asi que mantener la capa de compositor evita jank. */
   will-change: transform;
 }
 
@@ -91,48 +103,103 @@
   background: rgba(4, 11, 19, 0.94);
   box-shadow: 6px 6px 0 rgba(174, 240, 0, 0.65);
   transform-origin: center bottom;
-  transition: transform 300ms ease, box-shadow 300ms ease;
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms ease;
 }
 
 .project-card:hover {
+  border-color: #d5ff6b;
   box-shadow: 10px 12px 0 rgba(174, 240, 0, 0.78), 0 18px 34px rgba(0, 0, 0, 0.35);
-  transform: translateY(-6px) rotateX(0.6deg) rotateY(-0.5deg);
+  /* Antes incluia rotateX/rotateY: se retira para alinear la tarjeta con el
+     lenguaje del resto del sitio (movimiento vertical corto y controlado). */
+  transform: translateY(-6px);
+}
+
+/* El titulo acompana el hover con un desplazamiento minimo. */
+.project-card__body h3 {
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms ease;
+}
+
+.project-card:hover .project-card__body h3 {
+  transform: translateX(4px);
+  color: #ffffff;
+}
+
+/* Tecnologias: misma microinteraccion en todo el sitio (icono sube, sin glow agresivo). */
+.project-card__technologies li {
+  transition: border-color 200ms ease;
+}
+
+.project-card__technologies svg {
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), filter 200ms ease;
+}
+
+.project-card__technologies li:hover {
+  border-color: rgba(191, 255, 37, 0.55);
+}
+
+.project-card__technologies li:hover svg {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 0 6px rgba(191, 255, 37, 0.45));
 }
 
 .project-card__window {
   display: flex;
   align-items: center;
-  min-height: 34px;
-  padding: 4px 8px;
-  color: #20282a;
-  background: #d5d8d7;
+  /* Barra mas alta para dar jerarquia al nombre de archivo. */
+  min-height: 44px;
+  padding: 8px 12px;
+  /* Barra de consola oscura: sustituye al gris claro de ventana antigua. */
+  color: #e6ecea;
+  background: linear-gradient(180deg, #101a20 0%, #0a1218 100%);
+  border-bottom: 1px solid rgba(191, 255, 37, 0.38);
   font-family: monospace;
 }
 
 .project-card__window > span {
   margin-right: 10px;
-  color: #77a500;
+  color: #bfff25;
   font-weight: 900;
+  font-size: 1rem;
 }
 
 .project-card__window small {
-  color: #343b3c;
+  color: #e2edea;
+  /* Tamano equiparable a las tarjetas de Experiencia. */
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-card__window div {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   margin-left: auto;
+  padding-left: 10px;
 }
 
 .project-card__window i {
   display: grid;
-  width: 20px;
-  height: 20px;
-  border: 1px solid currentColor;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(191, 255, 37, 0.42);
+  color: rgba(191, 255, 37, 0.78);
   place-items: center;
+  font-size: 0.78rem;
   font-style: normal;
   line-height: 1;
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.project-card:hover .project-card__window i {
+  border-color: rgba(191, 255, 37, 0.85);
+  color: #bfff25;
 }
 
 .project-preview {
@@ -526,6 +593,7 @@
   font-size: 0.72rem;
   font-weight: 800;
   text-decoration: none;
+  transition: color 200ms ease, background-color 200ms ease;
 }
 
 .project-card__actions .is-disabled {
@@ -570,6 +638,11 @@
   background: rgba(191, 255, 37, 0.04);
   cursor: pointer;
   place-items: center;
+  transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.projects__controls > button:active {
+  transform: scale(0.92);
 }
 
 .projects__controls > button:hover,
@@ -590,10 +663,17 @@
   border: 0;
   background: #3c474a;
   cursor: pointer;
+  transition: background-color 220ms ease, transform 220ms ease;
+}
+
+.projects__dots button:hover {
+  background: #6d7d70;
 }
 
 .projects__dots button.is-active {
   background: #bfff25;
+  transform: scaleX(1.25);
+  transform-origin: left center;
 }
 
 .projects__footer {
@@ -629,13 +709,24 @@
   }
 }
 
+@media (max-width: 900px) {
+  .projects h2 {
+    font-size: clamp(1.75rem, 4.6vw, 2.6rem);
+  }
+}
+
 @media (max-width: 640px) {
   .projects {
     padding: 56px 16px 36px;
   }
 
   .projects h2 {
-    font-size: clamp(2rem, 10vw, 3rem);
+    font-size: clamp(1.85rem, 8.2vw, 2.6rem);
+  }
+
+  .projects h2 span {
+    /* En pantallas pequenas se permite el salto natural para no desbordar. */
+    white-space: normal;
   }
 
   .project-preview {
@@ -657,11 +748,22 @@
     transition: none;
   }
 
-  .project-card {
+  .project-card,
+  .project-card__body h3,
+  .project-card__technologies li,
+  .project-card__technologies svg,
+  .projects__controls > button,
+  .projects__dots button,
+  .project-card__window i,
+  .project-card__actions :is(a, span) {
     transition: none;
   }
 
-  .project-card:hover {
+  .project-card:hover,
+  .project-card:hover .project-card__body h3,
+  .project-card__technologies li:hover svg,
+  .projects__controls > button:active,
+  .projects__dots button.is-active {
     transform: none;
   }
 

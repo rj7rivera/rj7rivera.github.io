@@ -14,7 +14,7 @@ export const projects = [
     technologies: [
       { name: 'React', level: 'Principal', icon: 'react' },
       { name: 'Supabase', level: 'Uso alto', icon: 'supabase' },
-      { name: 'PostgreSQL', level: 'Uso alto', icon: 'postgresql' },
+      { name: 'CSS3', level: 'Uso alto', icon: 'css' },
       { name: 'Vite', level: 'Complementario', icon: 'vite' },
     ],
     preview: 'sales',
@@ -54,7 +54,7 @@ export const projects = [
     technologies: [
       { name: 'React', level: 'Principal', icon: 'react' },
       { name: 'Supabase', level: 'Uso alto', icon: 'supabase' },
-      { name: 'PostgreSQL', level: 'Uso medio', icon: 'postgresql' },
+      { name: 'Tailwind CSS', level: 'Uso medio', icon: 'tailwind' },
       { name: 'jsPDF', level: 'Complementario', icon: 'javascript' },
     ],
     preview: 'enrollment',

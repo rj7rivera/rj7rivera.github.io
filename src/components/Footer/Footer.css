@@ -56,6 +56,7 @@
   font-size: 0.74rem;
   font-weight: 900;
   text-decoration: none;
+  transition: color 200ms ease, background-color 200ms ease;
 }
 
 .footer__cta:hover { color: #07100a; background: var(--footer-accent); }
@@ -150,9 +151,13 @@
   place-items: center;
   border: 1px solid rgba(214, 222, 221, 0.26);
   color: var(--footer-accent);
+  transition: color 200ms ease, background-color 200ms ease, transform 200ms ease;
 }
 
-.footer__socials a:hover { color: #07100a; background: var(--footer-accent); }
+.footer__socials a:hover { color: #07100a; background: var(--footer-accent); transform: translateY(-3px); }
+
+.footer__group li a,
+.footer__contact a { transition: color 200ms ease; }
 
 .footer__wordmark {
   height: clamp(150px, 20vw, 285px);
@@ -168,6 +173,19 @@
   -webkit-text-stroke: 1px rgba(213, 218, 215, 0.17);
   text-stroke: 1px rgba(213, 218, 215, 0.17);
   user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer__socials a,
+  .footer__cta,
+  .footer__group li a,
+  .footer__contact a {
+    transition: none;
+  }
+
+  .footer__socials a:hover {
+    transform: none;
+  }
 }
 
 @media (max-width: 1100px) {

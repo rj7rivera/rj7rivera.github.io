@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { headerLinks } from './headerLinks'
 import { useHeaderMenu } from './useHeaderMenu'
 import Logo from '../../assets/icono/Logo.png'
@@ -17,12 +18,29 @@ const headerIcons = {
 }
 
 function Header() {
-  const { activeLink, handleLinkClick, isMenuOpen, setIsMenuOpen, hasScrolled } = useHeaderMenu()
+  const { activeLink, handleLinkClick, isMenuOpen, setIsMenuOpen } = useHeaderMenu()
+  const headerRef = useRef(null)
+
+  useEffect(() => {
+    const updateHeader = () => {
+      headerRef.current?.classList.toggle('is-scrolled', window.scrollY > 24)
+    }
+
+    updateHeader()
+    window.addEventListener('scroll', updateHeader, { passive: true })
+
+    return () => window.removeEventListener('scroll', updateHeader)
+  }, [])
 
   return (
-    <header className={`site-header ${hasScrolled ? 'is-scrolled' : ''}`} aria-label="Navegación principal">
+    <header ref={headerRef} className="site-header" aria-label="Navegación principal">
       <nav className="header-nav" aria-label="Secciones del portafolio">
-        <a className="header-brand" href="#inicio" aria-label="Ir al inicio" onClick={() => handleLinkClick('inicio')}>
+        <a
+          className="header-brand"
+          href="#inicio"
+          aria-label="Ir al inicio"
+          onClick={() => handleLinkClick('inicio')}
+        >
           <img src={Logo} alt="" />
         </a>
 

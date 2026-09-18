@@ -1,13 +1,16 @@
 .experiencia {
 	--grid-size: 60px;
 	--grid-line: 2px;
-	/* Aumenta este tiempo para que las cuadrículas se muevan más lento. */
-	--grid-animation-duration: 6s;
+	/* Deriva algo mas viva, en sintonia con la cuadricula global. */
+	--grid-animation-duration: 11s;
 	position: relative;
 	min-height: 100vh;
-	overflow: hidden;
+	/* clip en X evita scroll lateral; en Y deja salir la caricatura sobre la linea divisoria. */
+	overflow-x: clip;
+	overflow-y: visible;
 }
 
+/* Badge original: ancla la division entre ambas columnas en la base. */
 .experiencia__badge {
 	position: absolute;
 	bottom: -12px;
@@ -17,6 +20,143 @@
 	height: auto;
 	pointer-events: none;
 	transform: translateX(-50%);
+}
+
+/* Cyber-badge: ID brutalista en diagonal sobre la linea que divide Proyectos y Experiencia. */
+.experiencia__avatar {
+	position: absolute;
+	top: 0;
+	right: clamp(48px, 7vw, 118px);
+	z-index: 5;
+	display: grid;
+	/* El lima del fondo se ve por el padding y los gaps: hace de marco biselado. */
+	gap: 2px;
+	width: clamp(71px, 4.8vw, 91px);
+	padding: 2px;
+	background: #aef000;
+	/* Esquinas cortadas en diagonal: opuestas, estilo tarjeta de identificacion cyber. */
+	clip-path: polygon(
+		0 9px,
+		9px 0,
+		100% 0,
+		100% calc(100% - 9px),
+		calc(100% - 9px) 100%,
+		0 100%
+	);
+	cursor: pointer;
+	/* drop-shadow respeta el clip-path; box-shadow quedaria recortado. */
+	filter: drop-shadow(4px 4px 0 rgba(174, 240, 0, 0.45));
+	/* Queda a caballo sobre la linea divisoria y ligeramente inclinada a la izquierda. */
+	transform: translateY(-50%) rotate(-6deg);
+	transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), filter 260ms ease,
+		background-color 260ms ease;
+}
+
+.experiencia__avatar:hover,
+.experiencia__avatar:focus-visible {
+	outline: none;
+	background: #d5ff6b;
+	filter: drop-shadow(7px 7px 0 rgba(174, 240, 0, 0.7));
+	transform: translateY(-50%) rotate(-2deg) scale(1.04);
+}
+
+.experiencia__avatar-bar {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 3px 5px;
+	background: #04090f;
+	font-family: monospace;
+}
+
+.experiencia__avatar-bar b {
+	margin-right: auto;
+	color: #aef000;
+	font-size: 0.5rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+}
+
+/* LED de estado: latido lento que indica perfil activo. */
+.experiencia__avatar-led {
+	width: 6px;
+	height: 6px;
+	flex: 0 0 6px;
+	border-radius: 50%;
+	background: #aef000;
+	box-shadow: 0 0 5px #aef000;
+	animation: experiencia-led 2.2s ease-in-out infinite;
+}
+
+@keyframes experiencia-led {
+	0%,
+	100% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.25;
+	}
+}
+
+.experiencia__avatar-stage {
+	position: relative;
+	display: block;
+	width: 100%;
+	/* Reserva el alto para evitar saltos al superponer ambas poses. */
+	aspect-ratio: 4 / 5;
+	overflow: hidden;
+	background: #04090f;
+}
+
+.experiencia__avatar-pose {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	object-position: bottom center;
+	transition: opacity 280ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+	will-change: opacity, transform;
+}
+
+.experiencia__avatar-pose--hover {
+	opacity: 0;
+	transform: scale(0.94);
+}
+
+.experiencia__avatar:hover .experiencia__avatar-pose--idle,
+.experiencia__avatar:focus-visible .experiencia__avatar-pose--idle {
+	opacity: 0;
+	transform: scale(0.94);
+}
+
+.experiencia__avatar:hover .experiencia__avatar-pose--hover,
+.experiencia__avatar:focus-visible .experiencia__avatar-pose--hover {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.experiencia__avatar-status {
+	display: block;
+	padding: 3px 5px;
+	background: #04090f;
+	color: #aef000;
+	font: 700 0.48rem monospace;
+	letter-spacing: 0.06em;
+	text-align: center;
+	white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.experiencia__avatar,
+	.experiencia__avatar-pose {
+		transition: none;
+	}
+
+	.experiencia__avatar-led {
+		animation: none;
+	}
 }
 
 .experiencia__content {
@@ -31,24 +171,45 @@
 	min-width: 0;
 	/* Margen interior amplio para separar las tarjetas de los bordes y entre sí. */
 	padding: 68px clamp(48px, 7vw, 112px) 86px;
-	background-size: var(--grid-size) var(--grid-size);
-	animation: grid-drift var(--grid-animation-duration) linear infinite;
+	/* Deriva media y continua, en sintonia con la cuadricula global. */
+	animation: experiencia-grid-drift var(--grid-animation-duration) linear infinite;
+}
+
+@keyframes experiencia-grid-drift {
+	from {
+		background-position: 0 0, 0 0;
+	}
+
+	to {
+		background-position: var(--grid-size) var(--grid-size),
+			var(--grid-size) var(--grid-size);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.experiencia__column {
+		animation: none;
+	}
 }
 
 .experiencia__column--light {
 	color: #16171a;
 	background-color: #f8f8f7;
+	background-size: var(--grid-size) var(--grid-size);
 	background-image:
-		linear-gradient(to right, rgba(22, 22, 22, 0.45) var(--grid-line), transparent var(--grid-line)),
-		linear-gradient(to bottom, rgba(22, 22, 22, 0.45) var(--grid-line), transparent var(--grid-line));
+		/* Opacidad graduada directamente en la linea: sin velos encima. */
+		linear-gradient(to right, rgba(22, 22, 22, 0.3) var(--grid-line), transparent var(--grid-line)),
+		linear-gradient(to bottom, rgba(22, 22, 22, 0.3) var(--grid-line), transparent var(--grid-line));
 }
 
+/* Mismo tono, grosor y escala de cuadricula que el Hero (ver index.css). */
 .experiencia__column--dark {
 	color: #f8f8f7;
-	background-color: #050505;
+	background-color: var(--bg-main);
+	background-size: var(--grid-size) var(--grid-size);
 	background-image:
-		linear-gradient(to right, rgba(255, 255, 255, 0.3) var(--grid-line), transparent var(--grid-line)),
-		linear-gradient(to bottom, rgba(255, 255, 255, 0.3) var(--grid-line), transparent var(--grid-line));
+		linear-gradient(to right, rgba(255, 255, 255, 0.22) var(--grid-line), transparent var(--grid-line)),
+		linear-gradient(to bottom, rgba(255, 255, 255, 0.22) var(--grid-line), transparent var(--grid-line));
 }
 
 .experiencia__eyebrow {
@@ -271,12 +432,7 @@
 	gap: 12px;
 }
 
-.experience-card--support h3::after {
-	flex: 1;
-	height: 2px;
-	content: '';
-	background: #aef000;
-}
+
 
 .experience-card__support-list {
 	position: relative;
@@ -302,7 +458,9 @@
 	z-index: 1;
 	color: #16171a;
 	background: #aef000;
-	font-size: 1.2rem;
+	font-family: monospace;
+	font-size: 0.82rem;
+	font-weight: 900;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -312,7 +470,16 @@
 }
 
 
+/* En pantallas medianas el badge se reduce y se acerca al borde. */
+@media (max-width: 1200px) {
+	.experiencia__avatar {
+		right: 24px;
+		width: 80px;
+	}
+}
+
 @media (max-width: 900px) {
+	.experiencia__avatar,
 	.experiencia__badge {
 		display: none;
 	}
