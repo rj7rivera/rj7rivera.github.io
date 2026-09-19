@@ -94,14 +94,6 @@ body::before {
   }
 }
 
-/* En movil la deriva continua no aporta y cuesta bateria y FPS. */
-@media (max-width: 767px) {
-  body::before {
-    animation: none;
-    will-change: auto;
-  }
-}
-
 .motion-line {
   display: block;
 }
